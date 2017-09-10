@@ -5,6 +5,9 @@ using System;
 
 namespace BeatThat.Serialization
 {
+	/// <summary>
+	/// Reads/writes objects to/from json.
+	/// </summary>
 	public class JsonReader<T> : ReaderBase<T> 
 	{
 		override public T ReadOne(Stream s)
@@ -62,6 +65,11 @@ namespace BeatThat.Serialization
 			using(var r = new StreamReader(s)) {
 				json = r.ReadToEnd();
 			}
+
+			if(typeof(DtoType).IsValueType) {
+				return TempDTOToItem(JsonUtility.FromJson<DtoType>(json));
+			}
+
 			DtoType tempDTO = default(DtoType);
 			try { 
 				tempDTO = StaticObjectPool<DtoType>.Get();
@@ -79,7 +87,14 @@ namespace BeatThat.Serialization
 			using(var r = new StreamReader(s)) {
 				json = r.ReadToEnd();
 			}
+
 			DtoType tempDTO = default(DtoType);
+			if(typeof(DtoType).IsValueType) {
+				tempDTO = JsonUtility.FromJson<DtoType>(json);
+				OverwriteItem(tempDTO, toObject);
+				return toObject;
+			}
+
 			try { 
 				tempDTO = StaticObjectPool<DtoType>.Get();
 				JsonUtility.FromJsonOverwrite(json, tempDTO);
