@@ -1,8 +1,8 @@
-﻿using System.IO;
+using System.IO;
 
-namespace BeatThat.Serialization
+namespace BeatThat.Serializers
 {
-	public abstract class ReaderBase<T> : Reader<T> 
+    public abstract class ReaderBase<T> : Reader<T> 
 	{
 		public ReadItemDelegate<T> itemReader { get { return m_itemReader?? (m_itemReader = this.ReadOne); } }
 		private ReadItemDelegate<T> m_itemReader;
@@ -14,3 +14,4 @@ namespace BeatThat.Serialization
 		abstract public T[] ReadArray(Stream s);
 	}
 }
+

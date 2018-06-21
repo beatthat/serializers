@@ -1,9 +1,9 @@
-﻿using System.IO;
+using System.IO;
 
-namespace BeatThat.Serialization
+namespace BeatThat.Serializers
 {
 
-	public delegate T ReadItemDelegate<T>(Stream s);
+    public delegate T ReadItemDelegate<T>(Stream s);
 
 	/// <summary>
 	/// interface for a class that can have its data overwritten, generally so it can be pooled and reused
@@ -27,3 +27,4 @@ namespace BeatThat.Serialization
 		T[] ReadArray(Stream s);
 	}
 }
+

@@ -1,14 +1,14 @@
-using UnityEngine;
-using System.IO;
-using BeatThat;
+using BeatThat.Pools;
 using System;
+using System.IO;
+using UnityEngine;
 
-namespace BeatThat.Serialization
+namespace BeatThat.Serializers
 {
-	/// <summary>
-	/// Reads/writes objects to/from json.
-	/// </summary>
-	public class JsonReader<T> : ReaderBase<T> 
+    /// <summary>
+    /// Reads/writes objects to/from json.
+    /// </summary>
+    public class JsonReader<T> : ReaderBase<T> 
 	{
 		override public T ReadOne(Stream s)
 		{
@@ -165,3 +165,5 @@ namespace BeatThat.Serialization
 		public T[] array;
 	}
 }
+
+
