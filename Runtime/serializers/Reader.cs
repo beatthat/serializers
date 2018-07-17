@@ -13,18 +13,35 @@ namespace BeatThat.Serializers
 		void Overwrite(T tempDTO);
 	}
 
-	public interface Reader<T> 
-	{
-		ReadItemDelegate<T> itemReader { get; }
+    public interface Reader<T>
+    {
+        ReadItemDelegate<T> itemReader { get; }
 
-		T ReadOne(Stream s);
+        T ReadOne(Stream s);
 
-		/// <summary>
-		/// Read that uses an existing object to write into
-		/// </summary>
-		T ReadOne(Stream s, ref T toObject);
+        /// <summary>
+        /// Read that uses an existing object to write into
+        /// </summary>
+        T ReadOne(Stream s, ref T toObject);
 
-		T[] ReadArray(Stream s);
-	}
+        T[] ReadArray(Stream s);
+
+        bool isThreadsafe { get; }
+    }
+
+
+#if NET_4_6
+    public static class ReaderAsyncExt
+    {
+        public static async System.Threading.Tasks.Task<T> ReadAsync<T>(this Reader<T> r, Stream s)
+        {
+            if(!r.isThreadsafe) {
+                return r.ReadOne(s);
+            }
+
+            return await System.Threading.Tasks.Task.Run(() => r.ReadOne(s)).ConfigureAwait(false);
+        }
+    }
+#endif
 }
 

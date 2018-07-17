@@ -9,7 +9,10 @@ namespace BeatThat.Serializers
     /// Reads/writes objects to/from json.
     /// </summary>
     public class JsonReader<T> : ReaderBase<T> 
-	{
+    {
+
+        public override bool isThreadsafe { get { return true; } }
+
 		override public T ReadOne(Stream s)
 		{
 			string json = null;
@@ -55,10 +58,13 @@ namespace BeatThat.Serializers
 			return toObject;
 		}
 
-	}
+    }
 
 	public abstract class JsonReader<T, DtoType> : ReaderBase<T> 
 	{
+
+        public override bool isThreadsafe { get { return true; } }
+
 		override public T ReadOne(Stream s)
 		{
 			string json = null;

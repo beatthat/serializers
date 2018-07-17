@@ -6,9 +6,11 @@ using UnityEngine.UI;
 
 namespace BeatThat.Serializers.Examples
 {
-   
 
-    public class Examples_JsonReader : MonoBehaviour
+    /// <summary>
+    /// Another simple example just uses async read call
+    /// </summary>
+    public class Examples_JsonReader_Async : MonoBehaviour
     {
         [Serializable]
         public struct Data
@@ -32,26 +34,26 @@ namespace BeatThat.Serializers.Examples
         public Text m_type;
         public Text m_success;
 
+        public void ResetInput()
+        {
+            m_jsonInput.text = INITAL_JSON;
+        }
+
+#if NET_4_6
         private void Start()
         {
             m_jsonInput.onValueChanged.AddListener(this.HandleJson);
             ResetInput();
         }
 
-        public void ResetInput()
-        {
-            m_jsonInput.text = INITAL_JSON;
-        }
-
-
-        private void HandleJson(string json)
+        private async void HandleJson(string json)
         {
             var reader = new JsonReader<Data>(); // in real apps, usually share a static instance
             using (var s = new MemoryStream(Encoding.UTF8.GetBytes(json)))
             {
                 try
                 {
-                    var data = reader.ReadOne(s);
+                    var data = await reader.ReadAsync(s);
 
                     m_name.text = data.name ?? "";
                     m_type.text = data.type ?? "";
@@ -64,6 +66,12 @@ namespace BeatThat.Serializers.Examples
 
             }
         }
+#else 
+        void Start()
+        {
+            Debug.LogError("You must enable .NET4x to use async");
+        }
+#endif
 
     }
 
