@@ -19,13 +19,13 @@ namespace BeatThat.Serializers
 			return JsonToItem(json);
 		}
 
-		override public T ReadOne(Stream s, T toObject)
+		override public T ReadOne(Stream s, ref T toObject)
 		{
 			string json = null;
 			using(var r = new StreamReader(s)) {
 				json = r.ReadToEnd();
 			}
-			return JsonToItem(json, toObject);
+			return JsonToItem(json, ref toObject);
 		}
 
 		override public T[] ReadArray(Stream s)
@@ -49,7 +49,7 @@ namespace BeatThat.Serializers
 			return JsonUtility.FromJson<T>(json);
 		}
 
-		virtual public T JsonToItem(string json, T toObject)
+		virtual public T JsonToItem(string json, ref T toObject)
 		{
 			JsonUtility.FromJsonOverwrite(json, toObject);
 			return toObject;
@@ -81,7 +81,7 @@ namespace BeatThat.Serializers
 			}
 		}
 
-		public override T ReadOne (Stream s, T toObject)
+		public override T ReadOne (Stream s, ref T toObject)
 		{
 			string json = null;
 			using(var r = new StreamReader(s)) {

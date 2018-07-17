@@ -22,7 +22,7 @@ namespace BeatThat.Serializers
 		/// <summary>
 		/// Read that uses an existing object to write into
 		/// </summary>
-		T ReadOne(Stream s, T toObject);
+		T ReadOne(Stream s, ref T toObject);
 
 		T[] ReadArray(Stream s);
 	}

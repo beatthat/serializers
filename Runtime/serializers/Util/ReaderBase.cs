@@ -9,7 +9,7 @@ namespace BeatThat.Serializers
 
 		abstract public T ReadOne(Stream s);
 
-		abstract public T ReadOne(Stream s, T toObject);
+		abstract public T ReadOne(Stream s, ref T toObject);
 
 		abstract public T[] ReadArray(Stream s);
 	}
