@@ -8,7 +8,7 @@ namespace BeatThat.Serializers
     /// </summary>
     public class JsonSerializer<T> : JsonReader<T>, Serializer<T>
     {
-        public void WriteOne(Stream s, T obj)
+        virtual public void WriteOne(Stream s, T obj)
         {
             var json = JsonUtility.ToJson(obj);
             using(var w = new StreamWriter(s)) {
