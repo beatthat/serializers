@@ -13,7 +13,9 @@
     "scripts",
     "src",
     "Runtime",
-    "Samples"
+    "Samples",
+    "README.md",
+    "readmefiles"
   ],
   "author": "larrykirschner@gmail.com",
   "license": "MIT",
