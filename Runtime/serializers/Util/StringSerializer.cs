@@ -1,6 +1,5 @@
 using System.IO;
 using System.Text;
-using UnityEngine;
 
 namespace BeatThat.Serializers
 {
@@ -10,6 +9,8 @@ namespace BeatThat.Serializers
     public class StringSerializer : ReaderBase<string>, Serializer<string>
     {
         public static StringSerializer UTF8 = new StringSerializer(Encoding.UTF8);
+        public static SerializerFactory<string> UTF8_SHARED_FACTORY = new SingleInstanceFactory<string>(UTF8);
+
         public const int DEFAULT_BUFFER_SIZE = 1024;
 
         public StringSerializer(Encoding encoding = null, int bufferSize = DEFAULT_BUFFER_SIZE)

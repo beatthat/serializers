@@ -8,6 +8,9 @@ namespace BeatThat.Serializers
     /// </summary>
     public class JsonSerializer<T> : JsonReader<T>, Serializer<T>
     {
+        public static JsonSerializer<T> SHARED_INSTANCE = new JsonSerializer<T>();
+        public static SerializerFactory<T> SHARED_INSTANCE_FACTORY = new SingleInstanceFactory<T>(SHARED_INSTANCE);
+
         virtual public void WriteOne(Stream s, T obj)
         {
             var json = JsonUtility.ToJson(obj);
