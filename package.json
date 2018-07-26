@@ -1,7 +1,7 @@
 {
   "name": "serializers",
   "scope": "beatthat",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "Serializers read and write typed objects, providing interfaces to enable users that don't know the serialization format.",
   "main": "index.js",
   "repository": {
