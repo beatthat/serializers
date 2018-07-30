@@ -1,6 +1,7 @@
 using BeatThat.Pools;
 using System;
 using System.IO;
+using System.Text;
 using UnityEngine;
 
 namespace BeatThat.Serializers
@@ -10,6 +11,18 @@ namespace BeatThat.Serializers
     /// </summary>
     public class JsonReader<T> : ReaderBase<T> 
     {
+        public const int DEFAULT_BUFFER_SIZE = 1024;
+
+        public JsonReader() :this(null) {} // need a zero-arg constructor in case created by pool
+
+        public JsonReader(Encoding encoding, int bufferSize = DEFAULT_BUFFER_SIZE)
+        {
+            this.encoding = encoding ?? Encoding.UTF8;
+            this.bufferSize = bufferSize;
+        }
+
+        public Encoding encoding { get; private set; }
+        public int bufferSize { get; private set; }
 
         public override bool isThreadsafe { get { return true; } }
 
