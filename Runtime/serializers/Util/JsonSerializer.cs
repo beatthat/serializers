@@ -28,7 +28,7 @@ namespace BeatThat.Serializers
                 w.Flush();
             }
 #else
-            var bytes = this.encoding.GetBytes(obj);
+            var bytes = this.encoding.GetBytes(json);
             s.Write(bytes, 0, bytes.Length);
 #endif
         }
