@@ -57,6 +57,25 @@ public class MyClass
 }
 ```
 
+#### Change the underlying json lib to Newtonsoft (or other)
+
+The default serializer uses Unity's `JSONUtility` class to read and write json. Unity's JSONUtility is efficient, but it has a number of serious limitations, including these:
+
+- no support for `Dictionary` types
+- no support for dates
+- no support for C# properties (as opposed to public fields)
+- top level object cannot be an array (must be an object)
+
+You can change the json impl to newtonsoft as follows:
+
+- add the newtonsoft [JsonNet](https://www.newtonsoft.com/json) dll to `Assets/Plugins` (NOTE: as of this writing Unity only works with the 2.0 version and you will need to make some link.xml entries if using iOS)
+- Install via terminal `cd your-unity-project-root && npm install --save beatthat/serializers-newtonsoft`
+- put the code snippet below somewhere early in execution of your game
+```c#
+BeatThat.Serializers.SerializerConfig.SetDefaultSerializer(
+    new BeatThat.Serializers.Newtonsoft.JsonNetSerializerFactory());
+```
+
 ## SAMPLES
 
 This package installs with a Samples that has a few basic examples
